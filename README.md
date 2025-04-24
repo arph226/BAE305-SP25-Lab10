@@ -18,23 +18,46 @@ In Lab 10, we explored the use of Python and Streamlit to manipulate, visualize,
 - Libraries: pandas, matplotlib, folium, streamlit, streamlit-folium
 
 # Assembly Procedures 
-## Part 1: Map It – Monitoring Station Data
-1. Downloaded and reviewed the station.csv file from Canvas using Excel.
-2. Used the pandas library to load and filter stations for water quality monitoring sites such as rivers and streams.
-3. Extracted relevant columns: name, type, and coordinates.
-4. Created an interactive map using folium to display station locations.
+## Part 1: Map It 
+1. Data Exploration
+2. We downloaded the station.csv file from the Canvas assignment and opened it in Excel to explore the dataset. We examined column headers such as MonitoringLocationName, MonitoringLocationTypeName, LatitudeMeasure, and LongitudeMeasure to identify relevant station information.
+3. Environment Setup
+4. We opened a Jupyter Notebook within a Python environment (Anaconda) and imported required libraries: pandas for data manipulation and folium for map visualization.
+5. AI-Assisted Code Generation
+6. Using GPT-4, we prompted the model to create a Python function that would:
+    - Read the CSV file
+    - Filter for monitoring locations relevant to water quality (streams and rivers)
+    - Drop any duplicate or irrelevant rows
+    - Return a clean DataFrame of unique stations
+7. Mapping with Folium
+8. We requested a follow-up prompt to generate an interactive map showing the location of each station. The code used mean latitude and longitude to center the map and placed a marker for each valid site.
 
-## Part 2: What’s Normal – Water Quality Data Analysis
-1. Opened the narrowresult.csv file and identified columns of interest: characteristic name, date, and result value.
-2. Wrote Python functions to filter by water quality characteristic (e.g., pH, turbidity).
-3. Plotted the values over time using matplotlib.
-4. Developed a dual-axis plot to compare trends in pH and turbidity.
+## Part 2: What’s Normal 
+1. Understanding the Dataset
+2. We downloaded the narrowresult.csv file from Canvas and opened it in Excel to identify key data columns:
+    - CharacteristicName (e.g., pH, Turbidity)
+    - ActivityStartDate (timestamp of measurement)
+    - ResultMeasureValue (the numeric result)
+3. We uploaded the file to our GitHub Codespaces environment, ensuring compatibility with Python. We ensured headers were properly formatted and consistent with the column names used in our code.
+4. We prompted GPT-4 with to create a Python code that accesses Narrowresult, filters for a desired water quality characteristic, and plots the results with pH. We also tested with turbidity. Initial File Review
+5. We further prompted GPT-4 to generate dual-characteristic plots, displaying pH and turbidity using two y-axes on a shared timeline.
+6. We debugged plot formatting (e.g., axis labeling, legends, grid) and added customizations such as markers and figure sizing for clarity and readability.
 
-## Part 3: Interactive Streamlit App
-1. Created a public GitHub repository and initialized a streamlit_app.py file.
-2. Used ChatGPT to generate a Streamlit interface that allows users to upload both datasets.
-3. Added filters for contaminant selection, date ranges, and value ranges.
-4. Mapped station locations with filtered data and displayed time-series plots of contaminant levels.
+## Part 3: Streamlit App Development
+1. Streamlit and GitHub Integration Setup
+2. We signed up at streamlit.io using our GitHub credentials to link accounts. After email and authorization verifications, we created a new public GitHub repository named BAE305-SP25-Lab10.
+3. Streamlit App File Setup
+4. Within the GitHub repo, we added a new file: streamlit_app.py. We initialized Streamlit deployment by selecting:
+    - Branch: main
+    - Main file path: streamlit_app.py
+    - Custom App URL for easy access
+5. Prompting GPT for Full App Code to request
+    - File uploaders for station.csv and narrowresult.csv
+    - Sidebar selection of CharacteristicName, date range, and value range
+    - Filtering and merging logic
+    - Interactive folium map of valid station locations
+    - Time-series plot of selected contaminant using matplotlib
+6. We edited the code in GitHub Codespaces. Upon every session restart, we reinstalled required libraries using pip install commands in the terminal. These commands were connected to the app through the file requirements.txt. It was important to add this to the same repository as the streamlit app
 
 
 # Test Equipment
@@ -44,10 +67,21 @@ In Lab 10, we explored the use of Python and Streamlit to manipulate, visualize,
 
 
 # Test Procedures
+## Part 1: Map It 
+1. We verified that the Python function correctly filtered station types by checking output in the console. Each site was verified to be unique and relevant (e.g., labeled as "Stream" or "River").
+2. We confirmed that all markers were displayed on the map and that each popup provided readable site names and identifiers. We tested marker interactivity by hovering and clicking on them.
+3. We intentionally removed key columns and reran the code to ensure that missing values were properly excluded and the map remained functional.
 
+## Part 2: What’s Normal
+1. We tested the filter function with several parameters including "pH", "Turbidity", and "Nitrate" to ensure proper data isolation and plot rendering.
+2. We validated the order of data points along the x-axis and ensured that non-numeric entries were dropped. We also tested small and large datasets to check for rendering performance.
+3. We plotted both pH and turbidity simultaneously and ensured each had a distinct y-axis with readable tick marks. Overlapping points were visualized with different colors.
 
-
-
+## Part 3: Streamlit App
+1. We uploaded several versions of station.csv and narrowresult.csv to confirm compatibility. Files with different formats (e.g., missing headers or altered delimiters) were tested to ensure error messages were shown when appropriate.
+2. We used the sidebar to select various contaminants, adjust the result value slider, and modify the date range. The app was verified to update both the map and plot in real-time.
+3. We cross-checked map markers with actual data points from the narrowresult.csv and confirmed only valid entries within selected filters were shown.
+4. We varied the selected contaminant and date range to test plot updates. Chart titles and axes were checked for accuracy and clarity.
 
 # Test Results
 ## Part 1: Map It
@@ -140,6 +174,15 @@ m.save("station_map.html")
 ![image](https://github.com/user-attachments/assets/df79e2bc-9eb3-45f8-8c94-dd47d2362183)
 
 ![image](https://github.com/user-attachments/assets/4337a42d-8614-436e-91a9-0b206515c816)
+
+| **Goal**   | Generate a Python function that accesses the Narrowresult dataset and plots multiple datasets on the same plot|
+|------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| **Model**  | GPT-4 (ChatGPT-4, April 2025 version) |
+| **Prompt** | Can you please modify the python code so I can ask for two characteristics at the same time with 2 y axis? |
+
+![image](https://github.com/user-attachments/assets/cae75868-c4f5-48ce-97e8-56d883d6fa08)
+
+
 
 ---
 
@@ -338,16 +381,16 @@ else:
     st.info("Please upload both `station.csv` and `narrowresult.csv` to begin.")
 ```
 ```ruby
-pip install 
 streamlit 
 pandas 
 folium 
 streamlit-folium 
 matplotlib
 ```
-required libraries.txt
+requirements.txt
 
 https://bookish-telegram-g4r6prjrxrwx2966-8501.app.github.dev/ 
+https://bae305-sp25-lab10-abbyphillips.streamlit.app/
 
 # Discussion
 
